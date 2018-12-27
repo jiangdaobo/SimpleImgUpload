@@ -112,10 +112,12 @@ function SimpleImgUpload(ele, options) {
 			}
 		}
 		xhr.upload.onprogress = e => {
-			console.log(e.loaded, e.total)
 			imgloading.innerText=`${parseInt(e.loaded / e.total * 100)}%`;
 			if (Math.ceil(e.loaded / e.total * 100) === 100)
 			imgloading.innerText=`正在压缩`;
+		}
+		xhr.upload.onerror=e=>{
+			imgloading.innerText='上传失败';
 		}
 		xhr.open('POST', options.path, true);
 		xhr.send(formData);
